@@ -1,0 +1,11 @@
+{
+  "name": "hunterdorfner-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Build scripts for deploying the Hunter Dorfner personal site to Cloudflare Pages.",
+  "scripts": {
+    "build": "npm run clean && npm run copy",
+    "clean": "rm -rf dist",
+    "copy": "mkdir -p dist && cp index.html dist/index.html && cp styles.css dist/styles.css"
+  }
+}

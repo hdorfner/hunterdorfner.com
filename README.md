@@ -5,6 +5,7 @@ A simple, single-page personal website for Hunter Dorfner. The site highlights a
 ## Getting started
 
 Open `index.html` in your browser to preview the site locally. Customize the content in each section or adjust the visual styling by editing `styles.css`.
+ codex/create-simple-one-page-personal-website
 
 ### Metadata
 
@@ -34,3 +35,5 @@ If GitHub reports merge conflicts when you open a pull request:
 5. Push the updated branch and reload the pull request. GitHub should now show “This branch has no conflicts”.
 
 If you prefer rebasing instead of merging, run `git rebase origin/main` on your feature branch and resolve conflicts as they appear before pushing with `git push --force-with-lease`.
+
+ main

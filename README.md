@@ -12,13 +12,13 @@ When you need to mirror the Cloudflare Pages build locally, run:
 npm run build
 ```
 
-The script copies the static assets into a `dist/` folder, matching the structure Pages expects during deployment.
+The script copies the static assets into a `dist/` folder and decodes the Base64 social preview image so the published site serves `social-preview.png`, matching the structure Pages expects during deployment.
 
 ### Metadata
 
 The `<head>` includes SEO and social sharing metadata. Update the description, canonical URL, and social tags to reflect any changes to your branding or hosting domain.
 
-For richer link previews, replace `social-preview.jpg` with a real image hosted at your domain (1200×630px works well) and update the `og:image`/`twitter:image` URLs accordingly.
+For richer link previews, update [`social-preview.base64`](social-preview.base64) with a Base64-encoded 1200×630 PNG. Run `npm run build` (or `npm run generate-preview`) to regenerate the binary file in `dist/` so the published site serves the updated preview image.
 
 ## Deploying with Cloudflare Pages
 

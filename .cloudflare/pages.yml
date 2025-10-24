@@ -1,0 +1,6 @@
+# Cloudflare Pages project configuration
+# This file allows the build and output settings to be stored alongside the codebase,
+# so the Cloudflare dashboard does not need manual edits if the UI hides those fields.
+project_name: hunterdorfner-com
+build_command: npm run build
+build_output_directory: dist

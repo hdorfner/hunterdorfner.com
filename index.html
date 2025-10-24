@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hunter Dorfner | Transportation &amp; Operations Leader</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#introduction">Skip to main content</a>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="#top">Hunter Dorfner</a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="#introduction">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section id="introduction" class="section section-hero">
+      <div class="container">
+        <p class="eyebrow">Hello, I'm</p>
+        <h1>Hunter Dorfner</h1>
+        <p class="lead">
+          I'm a transportation and operations leader who enjoys blending data, technology, and people-first collaboration to
+          create resilient logistics solutions. I focus on translating complex insights into action that drives scalable growth
+          and dependable service.
+        </p>
+        <div class="hero-cta">
+          <a class="button" href="#contact">Get in touch</a>
+          <a class="button button-secondary" href="#experience">Explore my experience</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section section-alt">
+      <div class="container">
+        <h2>Experience</h2>
+        <div class="experience-item">
+          <div>
+            <h3>J.B. Hunt Transport Services</h3>
+            <p>
+              J.B. Hunt Transport Services is a Fortune 500 supply chain and logistics company, providing transportation and
+              technology solutions across North America.
+            </p>
+            <ul class="role-list">
+              <li>
+                <span class="role-title">Transportation Manager II</span>
+                <span class="role-meta">March 2025 – Present · Hanover, PA</span>
+              </li>
+              <li>
+                <span class="role-title">Manager In Training Program</span>
+                <span class="role-meta">October 2024 – March 2025</span>
+              </li>
+            </ul>
+            <a class="company-button" href="http://jbhunt.com" target="_blank" rel="noopener noreferrer">jbhunt.com</a>
+          </div>
+        </div>
+        <div class="experience-item">
+          <div>
+            <h3>Penn State THON</h3>
+            <p>
+              THON is a student-run philanthropy committed to enhancing the lives of children and families impacted by
+              childhood cancer. Our mission is to provide emotional and financial support, spread awareness, and ensure
+              funding for critical research—all in pursuit of a cure.
+            </p>
+            <ul class="role-list">
+              <li>
+                <span class="role-title">Rules &amp; Regulations Event Safety Director</span>
+                <span class="role-meta">March 2023 – May 2024 · University Park, PA</span>
+              </li>
+              <li>
+                <span class="role-title">Rules &amp; Regulations: Event Safety Head of Pass</span>
+                <span class="role-meta">April 2022 – March 2023 · University Park, PA</span>
+              </li>
+              <li>
+                <span class="role-title">Supply Logistics Raffle Captain</span>
+                <span class="role-meta">April 2021 – April 2022 · University Park, PA</span>
+              </li>
+            </ul>
+            <a class="company-button" href="https://thon.org" target="_blank" rel="noopener noreferrer">thon.org</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <div class="container">
+        <h2>Education</h2>
+        <div class="education-item">
+          <h3>The Pennsylvania State University · Smeal College of Business</h3>
+          <p class="meta">Bachelor of Science in Supply Chain and Information Systems · August 2024 · GPA: 3.20</p>
+          <p>Minor in Information Sciences and Technology</p>
+          <p>Minor in International Business</p>
+        </div>
+        <div class="education-item">
+          <h3>Bethel Park High School</h3>
+          <p class="meta">High School Diploma · 2020</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section section-alt">
+      <div class="container">
+        <h2>Contact</h2>
+        <p>I'd love to hear from you—feel free to reach out using the links below.</p>
+        <div class="links-grid">
+          <a class="link-card" href="mailto:contact@hunterdorfner.com">
+            <span class="link-label">Email</span>
+            <span class="link-value">contact@hunterdorfner.com</span>
+          </a>
+          <a class="link-card" href="https://www.linkedin.com/in/hunter-dorfner" target="_blank" rel="noopener noreferrer">
+            <span class="link-label">LinkedIn</span>
+            <span class="link-value">linkedin.com/in/hunter-dorfner</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Hunter Dorfner. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const yearEl = document.getElementById('year');
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+  </script>
+</body>
+</html>

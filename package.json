@@ -4,9 +4,8 @@
   "private": true,
   "description": "Build scripts for deploying the Hunter Dorfner personal site to Cloudflare Pages.",
   "scripts": {
-    "build": "npm run clean && npm run copy && npm run generate-preview",
+    "build": "npm run clean && npm run copy",
     "clean": "rm -rf dist",
-    "copy": "mkdir -p dist && cp index.html dist/index.html && cp styles.css dist/styles.css && cp favicon.svg dist/favicon.svg",
-    "generate-preview": "node scripts/generate-preview.js"
+    "copy": "mkdir -p dist && cp index.html dist/index.html && cp styles.css dist/styles.css && cp favicon.svg dist/favicon.svg"
   }
 }

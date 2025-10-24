@@ -12,15 +12,13 @@ When you need to mirror the Cloudflare Pages build locally, run:
 npm run build
 ```
 
-The script copies the static assets into a `dist/` folder and decodes the Base64 social preview image so the published site serves `social-preview.png`, matching the structure Pages expects during deployment.
+The script copies the static assets into a `dist/` folder so you can mirror the structure that Cloudflare Pages publishes during deployment.
 
 ### Metadata
 
 The `<head>` includes SEO and social sharing metadata. Update the description, canonical URL, and social tags to reflect any changes to your branding or hosting domain.
 
-For richer link previews, update [`social-preview.base64`](social-preview.base64) with a Base64-encoded 1200×630 PNG. Run `npm run build` (or `npm run generate-preview`) to regenerate the binary file in `dist/` so the published site serves the updated preview image.
-
-The site also includes a vector favicon at [`favicon.svg`](favicon.svg). Replace it with your own artwork (keeping the same filename) and run `npm run build` to ensure the icon is copied into `dist/` for Safari tabs, bookmarks, and pinned tabs.
+For richer link previews, update the [`favicon.svg`](favicon.svg) monogram. The `<meta>` tags point social networks to that asset, so replacing the SVG automatically refreshes both the browser favicon and the shared preview image after the next deploy. Run `npm run build` to ensure the icon is copied into `dist/` for Safari tabs, bookmarks, and pinned tabs.
 
 ## Deploying with Cloudflare Pages
 

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hunter Dorfner monogram">
+  <defs>
+    <linearGradient id="brand-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b2545" />
+      <stop offset="100%" stop-color="#1f4b7d" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="url(#brand-gradient)" />
+  <path
+    d="M18 18h6v28h-6V18zm10 0h10c8.284 0 15 6.716 15 15s-6.716 15-15 15H28V18zm10 22c3.866 0 7-3.134 7-7s-3.134-7-7-7h-4v14h4z"
+    fill="#ffffff"
+  />
+</svg>

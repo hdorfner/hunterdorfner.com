@@ -20,6 +20,8 @@ The `<head>` includes SEO and social sharing metadata. Update the description, c
 
 For richer link previews, update [`social-preview.base64`](social-preview.base64) with a Base64-encoded 1200×630 PNG. Run `npm run build` (or `npm run generate-preview`) to regenerate the binary file in `dist/` so the published site serves the updated preview image.
 
+The site also includes a vector favicon at [`favicon.svg`](favicon.svg). Replace it with your own artwork (keeping the same filename) and run `npm run build` to ensure the icon is copied into `dist/` for Safari tabs, bookmarks, and pinned tabs.
+
 ## Deploying with Cloudflare Pages
 
 1. Sign in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and choose **Workers & Pages → Create application → Pages**.

@@ -153,10 +153,16 @@
   </footer>
 
   <script>
-    const yearEl = document.getElementById('year');
-    if (yearEl) {
-      yearEl.textContent = new Date().getFullYear();
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const yearEl = document.getElementById('year');
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+
+      if (window.location.hash === '#introduction') {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    });
   </script>
 </body>
 </html>

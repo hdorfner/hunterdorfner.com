@@ -1,0 +1,158 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { calculateCost, dollars } from '../../lib/transportation.mjs';
+const example = calculateCost({ miles: 500, rate: 2.25, fuelPercent: 20, additional: 75 });
+---
+
+<Layout
+  title="Transportation Cost Calculator"
+  description="Try a simple shipment cost estimate using distance, linehaul rate, fuel surcharge, and additional charges. An independent educational Lab experiment."
+>
+  <div class="container content-bottom">
+    <section class="demo-header">
+      <a href="/lab/" class="back-link">
+        ← Back to the Lab
+      </a>
+      <p class="eyebrow">Experiment 02 / Educational estimate</p>
+      <h1>Transportation cost calculator</h1>
+      <p class="lead">See how distance, rate, and additional charges add up.</p>
+    </section>
+    <p class="notice">
+      An illustrative calculation, not a freight quote or market-rate recommendation. Fuel is
+      modeled as a percentage of linehaul; actual contracts may calculate it differently.
+    </p>
+    <noscript>
+      <p class="notice">
+        The example below is pre-calculated. Enable JavaScript to calculate different inputs.
+      </p>
+    </noscript>
+    <div class="calculator-grid">
+      <form id="cost-form">
+        <fieldset id="calculator-fields" disabled style="border:0;padding:0;margin:0">
+          <legend class="eyebrow">Shipment assumptions</legend>
+          <div class="calculator-form">
+            <label class="field">
+              Distance (miles)
+              <input required name="miles" type="number" min="1" max="10000" step="1" value="500" />
+              <small>1–10,000 miles</small>
+            </label>
+            <label class="field">
+              Linehaul rate (USD / mile)
+              <input
+                required
+                name="rate"
+                type="number"
+                min="0"
+                max="100"
+                step="0.01"
+                value="2.25"
+              />
+              <small>$0–$100 per mile</small>
+            </label>
+            <label class="field">
+              Fuel surcharge (%)
+              <input
+                required
+                name="fuelPercent"
+                type="number"
+                min="0"
+                max="100"
+                step="0.1"
+                value="20"
+              />
+              <small>0–100% of linehaul</small>
+            </label>
+            <label class="field">
+              Additional charges (USD)
+              <input
+                required
+                name="additional"
+                type="number"
+                min="0"
+                max="100000"
+                step="0.01"
+                value="75"
+              />
+              <small>$0–$100,000</small>
+            </label>
+            <button class="button" type="submit">
+              Calculate estimate <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </fieldset>
+      </form>
+      <section
+        class="calculator-result"
+        aria-label="Estimated shipment cost"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        <p class="eyebrow" id="estimate-label">
+          Example total · USD
+        </p>
+        <output id="estimate-total" form="cost-form">
+          {dollars(example.total)}
+        </output>
+        <p id="estimate-rate">{dollars(example.perMile)} per mile, all included</p>
+        <div class="result-detail">
+          <p id="estimate-linehaul">Linehaul: {dollars(example.linehaul)}</p>
+          <p id="estimate-fuel">Fuel surcharge: {dollars(example.fuel)}</p>
+          <p id="estimate-additional">Additional charges: $75.00</p>
+        </div>
+        <p id="estimate-error" class="result-error" hidden></p>
+      </section>
+    </div>
+    <details class="methodology" open>
+      <summary>The calculation</summary>
+      <p>
+        Linehaul = miles × rate per mile. Fuel surcharge = linehaul × fuel percentage ÷ 100. Total =
+        linehaul + fuel surcharge + additional charges. All-in cost per mile = total ÷ miles.
+        Calculations retain precision until display, which rounds to cents. This example does not
+        model taxes, minimum charges, transit time, or capacity.
+      </p>
+    </details>
+  </div>
+</Layout>
+<script>
+  import { calculateCost, dollars } from '../../lib/transportation.mjs';
+  const form = document.querySelector<HTMLFormElement>('#cost-form');
+  const fields = document.querySelector<HTMLFieldSetElement>('#calculator-fields');
+  const setText = (id: string, value: string) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+  if (form && fields) {
+    fields.disabled = false;
+    form.addEventListener('input', () =>
+      setText('estimate-label', 'Previous estimate · recalculate to update'),
+    );
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const error = document.getElementById('estimate-error');
+      try {
+        const result = calculateCost({
+          miles: Number(data.get('miles')),
+          rate: Number(data.get('rate')),
+          fuelPercent: Number(data.get('fuelPercent')),
+          additional: Number(data.get('additional')),
+        });
+        setText('estimate-total', dollars(result.total));
+        setText('estimate-rate', `${dollars(result.perMile)} per mile, all included`);
+        setText('estimate-linehaul', `Linehaul: ${dollars(result.linehaul)}`);
+        setText('estimate-fuel', `Fuel surcharge: ${dollars(result.fuel)}`);
+        setText(
+          'estimate-additional',
+          `Additional charges: ${dollars(Number(data.get('additional')))}`,
+        );
+        setText('estimate-label', 'Estimated total · USD');
+        if (error) error.hidden = true;
+      } catch {
+        if (error) {
+          error.textContent = 'Check the input limits and enter valid numbers.';
+          error.hidden = false;
+        }
+      }
+    });
+  }
+</script>

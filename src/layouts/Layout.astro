@@ -1,0 +1,74 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import '../styles/global.css';
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+const { title, description, noindex = false } = Astro.props;
+const canonical = new URL(noindex ? '/404.html' : Astro.url.pathname, site.url).href;
+const fullTitle =
+  title === site.name
+    ? 'Hunter Dorfner | Supply Chain, Operations & Technology'
+    : `${title} | Hunter Dorfner`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${site.url}/#person`,
+  name: site.name,
+  url: site.url,
+  email: site.email,
+  sameAs: [site.linkedin],
+  jobTitle: 'Supply Chain Coordinator – Transportation',
+  worksFor: { '@type': 'Organization', name: 'Armada Supply Chain Solutions' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'The Pennsylvania State University' },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101f35" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${site.url}/og.png`} />
+    <meta property="og:image:width" content="1728" />
+    <meta property="og:image:height" content="910" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Hunter Dorfner — Supply Chain, Operations, Technology" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${site.url}/og.png`} />
+    <meta
+      name="twitter:image:alt"
+      content="Hunter Dorfner — Supply Chain, Operations, Technology"
+    />
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(schema).replace(/</g, '\\u003c')}
+    ></script>
+  </head>
+  <body>
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { site } from '../data/site';
+---
+
+<Layout
+  title="Resume"
+  description="Request Hunter Dorfner’s current résumé or explore his professional experience, education, and project case studies online."
+>
+  <div class="container content-bottom">
+    <PageIntro
+      eyebrow="Resume"
+      title="The short version of my experience."
+      description="A background in supply chain, transportation, analytics, and leadership—with a growing focus on building useful technology."
+    />
+    <section class="resume-panel">
+      <h2>{site.resume ? 'Download my résumé.' : 'Request my current résumé.'}</h2>
+      <p>
+        {site.resume
+          ? 'A concise overview of my professional experience and education.'
+          : 'A downloadable PDF will be added here after its next review. In the meantime, email me for a current copy.'}
+      </p>
+      {site.resume ? (
+        <a class="button" href={site.resume} download>
+          Download résumé (PDF)
+        </a>
+      ) : (
+        <a class="button" href={`mailto:${site.email}?subject=Resume%20request`}>
+          Request by email <span aria-hidden="true">↗</span>
+        </a>
+      )}
+    </section>
+    <div class="lab-grid">
+      <article class="lab-card">
+        <h2>Experience &amp; leadership</h2>
+        <p>Explore my work at Armada, J.B. Hunt, and Penn State THON.</p>
+        <a href="/experience/">Read my experience</a>
+      </article>
+      <article class="lab-card">
+        <h2>Education &amp; background</h2>
+        <p>Supply Chain &amp; Information Systems at Penn State’s Smeal College of Business.</p>
+        <a href="/about/#education">Explore my education</a>
+      </article>
+    </div>
+  </div>
+</Layout>

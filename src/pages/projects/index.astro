@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import { projects } from '../../data/projects';
+---
+
+<Layout
+  title="Projects"
+  description="Explore Hunter Dorfner’s work in fleet performance, transportation analytics, THON event operations, web development, and small-business digital modernization."
+>
+  <div class="container">
+    <PageIntro
+      eyebrow="Work & case studies"
+      title="Problems worth working on."
+      description="A collection of professional experience, independent demonstrations, and projects I’m developing. Each starts with a problem and a practical way forward."
+    />
+    <div class="project-grid content-bottom">
+      {projects.map((project, index) => (
+        <ProjectCard project={project} index={index} />
+      ))}
+    </div>
+    <ContactCTA />
+  </div>
+</Layout>

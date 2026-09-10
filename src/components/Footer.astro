@@ -1,0 +1,24 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <a class="brand" href="/">
+        Hunter Dorfner
+      </a>
+      <p>Operations experience. A builder’s curiosity.</p>
+    </div>
+    <div class="footer-links">
+      <a href={site.linkedin}>LinkedIn</a>
+      <a href={'mailto:' + site.email}>Email</a>
+      <a href="/resume/">Resume</a>
+    </div>
+    <p class="copyright">
+      © {new Date().getFullYear()} Hunter Dorfner
+      <br />
+      Built with Astro. Always learning.
+    </p>
+  </div>
+</footer>

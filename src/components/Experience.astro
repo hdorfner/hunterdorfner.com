@@ -1,0 +1,35 @@
+---
+import { experience } from '../data/experience';
+interface Props {
+  item: (typeof experience)[number];
+}
+const { item } = Astro.props;
+---
+
+<article class="experience-row">
+  <div>
+    <p class="eyebrow">{item.location}</p>
+    <h2>{item.company}</h2>
+  </div>
+  <div>
+    <ul class="roles">
+      {item.roles.map((role) => (
+        <li>
+          <h3>{role.title}</h3>
+          <p class="meta">{role.dates}</p>
+        </li>
+      ))}
+    </ul>
+    <p>{item.description}</p>
+    <ul class="detail-list">
+      {item.points.map((point) => (
+        <li>{point}</li>
+      ))}
+    </ul>
+    {item.project && (
+      <a class="text-link" href={item.project}>
+        {item.projectLabel} <span aria-hidden="true">↗</span>
+      </a>
+    )}
+  </div>
+</article>

@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import Experience from '../components/Experience.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { experience } from '../data/experience';
+---
+
+<Layout
+  title="Experience"
+  description="Hunter Dorfner’s experience in transportation at Armada and J.B. Hunt, regional performance improvement, and executive event leadership at Penn State THON."
+>
+  <div class="container">
+    <PageIntro
+      eyebrow="Experience"
+      title="Learning by doing. Leading by following through."
+      description="From daily transportation coordination to regional improvement initiatives and large-scale event leadership."
+    />
+    <section aria-label="Professional and leadership experience">
+      {experience.map((item) => (
+        <Experience item={item} />
+      ))}
+    </section>
+    <ContactCTA />
+  </div>
+</Layout>

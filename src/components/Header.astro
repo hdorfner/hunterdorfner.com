@@ -1,0 +1,85 @@
+---
+import { navigation } from '../data/site';
+const current = Astro.url.pathname;
+---
+
+<a class="skip-link" href="#main">
+  Skip to main content
+</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="Hunter Dorfner — home">
+      <span class="monogram" aria-hidden="true">
+        hd.
+      </span>
+      <span>Hunter Dorfner</span>
+    </a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav" hidden>
+      Menu <span aria-hidden="true">+</span>
+    </button>
+    <nav id="primary-nav" aria-label="Main navigation">
+      {navigation.map(({ label, href }) => (
+        <a
+          href={href}
+          aria-current={
+            (href === '/' ? current === '/' : current.startsWith(href)) ? 'page' : undefined
+          }
+        >
+          {label}
+        </a>
+      ))}
+      <a
+        class="nav-contact"
+        href="/contact/"
+        aria-current={current === '/contact/' ? 'page' : undefined}
+      >
+        Let’s connect <span aria-hidden="true">↗</span>
+      </a>
+    </nav>
+  </div>
+</header>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.querySelector<HTMLElement>('#primary-nav');
+  if (button && nav) {
+    button.hidden = false;
+    const media = window.matchMedia('(max-width: 960px)');
+    const close = () => {
+      button.setAttribute('aria-expanded', 'false');
+      nav.classList.remove('is-open');
+    };
+    const sync = () => {
+      close();
+      nav.classList.toggle('collapsible', media.matches);
+    };
+    sync();
+    media.addEventListener('change', sync);
+    button.addEventListener('click', () => {
+      const open = button.getAttribute('aria-expanded') !== 'true';
+      button.setAttribute('aria-expanded', String(open));
+      nav.classList.toggle('is-open', open);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        close();
+        button.focus();
+      }
+    });
+    document.addEventListener('click', (event) => {
+      if (
+        event.target instanceof Node &&
+        !nav.contains(event.target) &&
+        !button.contains(event.target)
+      )
+        close();
+    });
+    nav.addEventListener('focusout', (event) => {
+      if (
+        event.relatedTarget instanceof Node &&
+        !nav.contains(event.relatedTarget) &&
+        !button.contains(event.relatedTarget)
+      )
+        close();
+    });
+  }
+</script>

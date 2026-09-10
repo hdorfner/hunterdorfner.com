@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+---
+
+<Layout
+  title="About"
+  description="Get to know Hunter Dorfner: a Pittsburgh-based supply chain professional exploring operations, analytics, leadership, and building useful technology."
+>
+  <div class="container">
+    <PageIntro
+      eyebrow="A little about me"
+      title="Grounded in operations. Driven by curiosity."
+      description="I’m interested in the space between how a business works today and how it could work better."
+    />
+    <div class="about-grid">
+      <div class="prose">
+        <h2>I like understanding how things work.</h2>
+        <p>
+          Transportation gives me a close-up view of what it takes to keep a system moving: people
+          communicating, plans changing, and small decisions adding up. That experience is the
+          starting point for how I approach problems.
+        </p>
+        <p>
+          I’m drawn to analytics and technology because they give me more ways to work on those
+          problems. A useful report can make a pattern visible. A small tool can remove a repetitive
+          step. A better process can make someone’s day easier.
+        </p>
+        <h2>People are part of the system.</h2>
+        <p>
+          Leading within Penn State THON taught me to think about coordination at a different scale.
+          Preparation matters, but so does helping people understand their responsibility and feel
+          ready to act. I bring that perspective to operations and to the things I’m learning to
+          build.
+        </p>
+        <h2>A builder’s perspective, with local roots.</h2>
+        <p>
+          My family’s seasonal ice cream business, Dari Delite in Bridgeville, adds another lens:
+          what does a digital idea actually mean for a small business and its customers? I help with
+          its digital presence, and I want to build the skills to take that work further.
+        </p>
+        <p>
+          This site is part portfolio and part learning project. It’s a place to document work, try
+          ideas, and become more capable at connecting operations, data, and software.
+        </p>
+      </div>
+      <aside class="note-panel">
+        <p class="eyebrow">Right now</p>
+        <h2>Building on experience.</h2>
+        <p>
+          Based in the Pittsburgh area and working in transportation at Armada Supply Chain
+          Solutions.
+        </p>
+        <p>Exploring modern web development and ways to make operational data more useful.</p>
+        <p>
+          <a href="/lab/">See what I’m experimenting with</a>
+        </p>
+      </aside>
+    </div>
+    <section class="section section-border" id="education">
+      <p class="eyebrow">Education</p>
+      <h2>A foundation across disciplines.</h2>
+      <div class="education-row" style="margin-top:30px">
+        <div>
+          <h3>The Pennsylvania State University</h3>
+          <p>Smeal College of Business</p>
+        </div>
+        <div>
+          <h3>B.S. in Supply Chain &amp; Information Systems</h3>
+          <p>Graduated August 2024</p>
+          <p>Minors in Information Sciences &amp; Technology and International Business</p>
+        </div>
+      </div>
+      <div class="education-row">
+        <h3>ISI Florence</h3>
+        <p>Study abroad with coursework in International Markets / Trade.</p>
+      </div>
+    </section>
+    <ContactCTA />
+  </div>
+</Layout>

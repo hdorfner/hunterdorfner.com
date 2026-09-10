@@ -1,0 +1,42 @@
+---
+import type { Project } from '../data/projects';
+interface Props {
+  project: Project;
+  index?: number;
+}
+const { project, index = 0 } = Astro.props;
+---
+
+<article class:list={['project-card', `project-${project.slug}`]}>
+  <div class="project-visual" aria-hidden="true">
+    <span class="project-index">{String(index + 1).padStart(2, '0')} / SELECTED WORK</span>
+    <strong>{project.metric}</strong>
+    <span>{project.metricLabel}</span>
+    {project.slug === 'fleet-idle-reduction' && (
+      <div class="mini-bars">
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+    )}
+  </div>
+  <div class="project-body">
+    <p class="eyebrow">{project.category}</p>
+    <h3>
+      <a href={`/projects/${project.slug}/`}>
+        {project.title}
+        <span aria-hidden="true">↗</span>
+      </a>
+    </h3>
+    <p>{project.summary}</p>
+    <ul class="tags" aria-label="Project skills">
+      {project.tags.map((tag) => (
+        <li>{tag}</li>
+      ))}
+    </ul>
+    <span class="project-status">{project.status}</span>
+  </div>
+</article>

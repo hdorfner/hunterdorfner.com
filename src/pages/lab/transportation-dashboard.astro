@@ -1,0 +1,166 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { shipments, summarize, regions, dollars } from '../../lib/transportation.mjs';
+const stats = summarize(shipments);
+const maximum = Math.max(
+  ...regions.map((region) => summarize(shipments.filter((row) => row.region === region)).cost),
+);
+---
+
+<Layout
+  title="Transportation Dashboard — Synthetic Data"
+  description="Explore 24 fictional shipments in a lightweight transportation dashboard. Filter regions to compare on-time delivery, total cost, and weighted cost per mile."
+>
+  <div class="container content-bottom">
+    <section class="demo-header">
+      <a class="back-link" href="/lab/">
+        ← Back to the Lab
+      </a>
+      <p class="eyebrow">Experiment 01 / Synthetic data only</p>
+      <h1>Transportation dashboard</h1>
+      <p class="lead">Service and cost, with the records behind them.</p>
+    </section>
+    <p class="notice">
+      Demonstration only. All 24 shipments are fictional, with no employer data or live connections.
+      This fixed dataset has no reporting-period claim.
+    </p>
+    <div class="demo-toolbar">
+      <label class="field" id="region-control" hidden>
+        Region
+        <select id="region-filter">
+          <option value="All">All regions</option>
+          {regions.map((region) => (
+            <option value={region}>{region}</option>
+          ))}
+        </select>
+      </label>
+      <a href="/data/shipments.csv" download>
+        Download synthetic data (CSV)
+      </a>
+    </div>
+    <noscript>
+      <p class="notice">Showing all regions. JavaScript enables the optional region filter.</p>
+    </noscript>
+    <p id="filter-status" class="meta" role="status" aria-live="polite">
+      Showing all 24 synthetic shipments.
+    </p>
+    <dl class="kpi-grid">
+      <div class="kpi">
+        <dt>Shipments</dt>
+        <dd id="kpi-count">{stats.count}</dd>
+      </div>
+      <div class="kpi">
+        <dt>On-time delivery</dt>
+        <dd id="kpi-ontime">{stats.onTime.toFixed(1)}%</dd>
+      </div>
+      <div class="kpi">
+        <dt>Total cost</dt>
+        <dd id="kpi-cost">{dollars(stats.cost).replace('.00', '')}</dd>
+      </div>
+      <div class="kpi">
+        <dt>Cost per mile</dt>
+        <dd id="kpi-mile">{dollars(stats.costPerMile)}</dd>
+      </div>
+    </dl>
+    <section class="chart-panel" aria-labelledby="chart-heading">
+      <h2 id="chart-heading">Cost by region</h2>
+      <p class="meta">Total synthetic shipment cost (USD). Bars share the same scale.</p>
+      <div id="region-chart">
+        {regions.map((region) => {
+          const cost = summarize(shipments.filter((row) => row.region === region)).cost;
+          return (
+            <div class="bar-row" data-region={region}>
+              <span>{region}</span>
+              <div class="bar-track" aria-hidden="true">
+                <div class="bar-fill" style={`width:${(cost / maximum) * 100}%`}></div>
+              </div>
+              <span class="bar-value">{dollars(cost).replace('.00', '')}</span>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+    <div
+      class="table-scroll"
+      role="region"
+      aria-label="Scrollable synthetic shipment table"
+      tabindex="0"
+    >
+      <table>
+        <caption>Underlying shipment records · synthetic data</caption>
+        <thead>
+          <tr>
+            <th scope="col">Shipment</th>
+            <th scope="col">Region</th>
+            <th scope="col">Carrier</th>
+            <th scope="col" class="number">
+              Miles
+            </th>
+            <th scope="col" class="number">
+              Cost (USD)
+            </th>
+            <th scope="col">Delivery</th>
+          </tr>
+        </thead>
+        <tbody>
+          {shipments.map((row) => (
+            <tr data-region={row.region}>
+              <th scope="row">{row.id}</th>
+              <td>{row.region}</td>
+              <td>{row.carrier}</td>
+              <td class="number">{row.miles}</td>
+              <td class="number">{dollars(row.cost)}</td>
+              <td>{row.onTime ? 'On time' : 'Late'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <details class="methodology">
+      <summary>How the measures are calculated</summary>
+      <p>
+        On-time delivery = on-time shipments ÷ selected shipments × 100. Cost per mile = total cost
+        ÷ total miles, a mileage-weighted measure. Total cost sums shipment costs. No taxes,
+        forecasting, or missing-data assumptions are modeled. The fictional records are generated
+        deterministically in the source code; the downloadable CSV contains the same records shown
+        here.
+      </p>
+    </details>
+    <p style="margin-top:25px">
+      <a href="/projects/transportation-analytics-dashboard/">Read the project case study</a>
+    </p>
+  </div>
+</Layout>
+<script>
+  import { shipments, summarize, dollars } from '../../lib/transportation.mjs';
+  const filter = document.querySelector<HTMLSelectElement>('#region-filter');
+  const control = document.querySelector<HTMLElement>('#region-control');
+  if (filter && control) {
+    control.hidden = false;
+    const setText = (id: string, value: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    };
+    filter.addEventListener('change', () => {
+      const region = filter.value;
+      const records = shipments.filter((row) => region === 'All' || row.region === region);
+      const stats = summarize(records);
+      setText('kpi-count', String(stats.count));
+      setText('kpi-ontime', `${stats.onTime.toFixed(1)}%`);
+      setText('kpi-cost', dollars(stats.cost).replace('.00', ''));
+      setText('kpi-mile', dollars(stats.costPerMile));
+      setText(
+        'filter-status',
+        `Showing ${stats.count} synthetic shipments · ${region === 'All' ? 'all regions' : region}.`,
+      );
+      document.querySelectorAll<HTMLElement>('[data-region]').forEach((el) => {
+        el.hidden = region !== 'All' && el.dataset.region !== region;
+      });
+    });
+  }
+</script>
+<style>
+  .bar-row[hidden] {
+    display: none;
+  }
+</style>

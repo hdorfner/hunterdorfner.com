@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+---
+
+<Layout
+  title="Lab"
+  description="A place to learn by building: try a lightweight synthetic transportation dashboard and cost calculator, and explore Hunter Dorfner’s future technical experiments."
+>
+  <div class="container content-bottom">
+    <PageIntro
+      eyebrow="The lab"
+      title="Curiosity, put to work."
+      description="Small tools and experiments for learning development through the kinds of problems I find interesting. Start with a working example, then look under the hood."
+    />
+    <div class="lab-grid">
+      <article class="lab-card">
+        <span class="lab-number">EXPERIMENT 01</span>
+        <h2>Transportation dashboard</h2>
+        <p>
+          Explore service, cost, and volume across 24 synthetic shipments. Filter a region and see
+          every measure update.
+        </p>
+        <a class="button" href="/lab/transportation-dashboard/">
+          Explore the data <span aria-hidden="true">↗</span>
+        </a>
+      </article>
+      <article class="lab-card">
+        <span class="lab-number">EXPERIMENT 02</span>
+        <h2>Transportation cost calculator</h2>
+        <p>
+          Change distance, rate, fuel surcharge, and additional charges to see how a simple shipment
+          estimate comes together.
+        </p>
+        <a class="button" href="/lab/cost-calculator/">
+          Try the calculator <span aria-hidden="true">↗</span>
+        </a>
+      </article>
+    </div>
+    <section class="section">
+      <p class="eyebrow">On the workbench</p>
+      <h2>Ideas for what comes next.</h2>
+      <p class="lead" style="margin-top:18px">
+        Future experiments—not available tools yet.
+      </p>
+      <ul class="future-list">
+        {[
+          'Route visualization',
+          'U.S. distribution map',
+          'Time-zone tools',
+          'API experiments',
+          'Interactive data visualizations',
+          'SQL demonstrations',
+          'Forecasting',
+          'AI experiments',
+        ].map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+  </div>
+</Layout>
